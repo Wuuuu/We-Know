@@ -5,18 +5,18 @@ import Heading from "../Heading";
 
 import styles from "./index.module.scss";
 
-type LoginModalProps = {
+type RegisterModalProps = {
   visible: boolean;
   onCancel: () => void;
   onOk?: () => void;
-  onRegisterModalToggle?: () => void;
+  onLoginModalToggle?: () => void;
 };
 
-const LoginModal: React.FC<LoginModalProps> = ({
+const RegisterModal: React.FC<RegisterModalProps> = ({
   visible,
   onCancel,
   onOk,
-  onRegisterModalToggle,
+  onLoginModalToggle,
 }) => {
   const onFinish = (values: Record<string, any>) => {
     console.log("Success:", values);
@@ -25,24 +25,23 @@ const LoginModal: React.FC<LoginModalProps> = ({
 
   const onToggle = () => {
     onCancel();
-    onRegisterModalToggle?.();
+    onLoginModalToggle?.();
   };
 
   return (
     <Modal
-      className={styles["login-modal-wrapper"]}
+      className={styles["register-modal-wrapper"]}
       width={680}
-      title="登录"
+      title="注册"
       open={visible}
       onCancel={onCancel}
       footer={null}
-      destroyOnClose
     >
       <div>
         <Heading
           center
-          title="欢迎来到 We Know"
-          subtitle="账号登录"
+          title="欢迎使用 We Know"
+          subtitle="账号注册"
         />
         <Form
           className="mt-4"
@@ -58,8 +57,21 @@ const LoginModal: React.FC<LoginModalProps> = ({
           >
             <Input size="large" />
           </Form.Item>
-
           <Form.Item
+            label="邮箱："
+            name="email"
+            rules={[
+              { required: true, message: "请输入邮箱!" },
+              {
+                type: "email",
+                message: "请输入合法的邮箱地址",
+              },
+            ]}
+          >
+            <Input size="large" />
+          </Form.Item>
+          <Form.Item
+            className={styles.formItemWrapper}
             label="密码："
             name="password"
             rules={[{ required: true, message: "请输入密码!" }]}
@@ -74,7 +86,7 @@ const LoginModal: React.FC<LoginModalProps> = ({
               block
               htmlType="submit"
             >
-              登录
+              注册
             </Button>
           </Form.Item>
         </Form>
@@ -97,13 +109,13 @@ const LoginModal: React.FC<LoginModalProps> = ({
         </Button>
         <div className="text-neutral-500 text-center mt-4 font-light">
           <p className="mb-0 mt-4">
-            第一次使用We Know?
+            已经有账号了?
             <span
               onClick={onToggle}
               className="text-neutral-800 cursor-pointer hover:underline"
             >
               {"  "}
-              创建账号
+              登录
             </span>
           </p>
         </div>
@@ -112,4 +124,4 @@ const LoginModal: React.FC<LoginModalProps> = ({
   );
 };
 
-export default LoginModal;
+export default RegisterModal;

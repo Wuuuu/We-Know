@@ -11,6 +11,7 @@ import { IconType } from "react-icons";
 
 import { SafeUser } from "@/app/types";
 import LoginModal from "../modals/LoginModal";
+import RegisterModal from "../modals/RegisterModal";
 
 interface UserMenuProps {
   currentUser?: SafeUser | null;
@@ -42,6 +43,7 @@ const UserInfoCard = () => {
     </Card>
   );
 };
+
 const items: MenuProps["items"] = [
   {
     label: <UserInfoCard />,
@@ -81,37 +83,55 @@ const items: MenuProps["items"] = [
 ];
 
 const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
-  const [loginModalState, { toggle }] = useToggle();
-  return (
-    <>
-      {currentUser ? (
-        <Dropdown
-          menu={{ items }}
-          trigger={["click"]}
-          overlayStyle={{ width: 340 }}
-        >
-          <Space>
-            <Avatar
-              size="large"
-              className="bg-orange-400 align-middle cursor-pointer"
-            >
-              Wuuuu
-            </Avatar>
-          </Space>
-        </Dropdown>
-      ) : (
+  const [loginModalState, { toggle: loginModaltoggle, setLeft: setLoginLeft }] = useToggle();
+  const [registerModalState, { toggle: registerModaltoggle, setLeft: setRegisterLeft }] =
+    useToggle();
+
+  if (!currentUser) {
+    return (
+      <>
         <div className="w-[160px] flex justify-around">
           <Button
             type="dashed"
-            onClick={toggle}
+            onClick={loginModaltoggle}
           >
             登录
           </Button>
-          <Button type="ghost">注册</Button>
-          <LoginModal visible={loginModalState} />
+          <Button
+            type="ghost"
+            onClick={registerModaltoggle}
+          >
+            注册
+          </Button>
         </div>
-      )}
-    </>
+        <LoginModal
+          onRegisterModalToggle={registerModaltoggle}
+          visible={loginModalState}
+          onCancel={setLoginLeft}
+        />
+        <RegisterModal
+          onLoginModalToggle={loginModaltoggle}
+          visible={registerModalState}
+          onCancel={setRegisterLeft}
+        />
+      </>
+    );
+  }
+  return (
+    <Dropdown
+      menu={{ items }}
+      trigger={["click"]}
+      overlayStyle={{ width: 340 }}
+    >
+      <Space>
+        <Avatar
+          size="large"
+          className="bg-orange-400 align-middle cursor-pointer"
+        >
+          Wuuuu
+        </Avatar>
+      </Space>
+    </Dropdown>
   );
 };
 
