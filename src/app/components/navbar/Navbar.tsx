@@ -11,11 +11,11 @@ type NavbarProps = {
 const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
   return (
     <div className=" relative w-full bg-white z-10 shadow-sm">
-      <div className="py-3 border-b-[1px]">
+      <div className="py-2.5 border-b-[1px]">
         <Container>
           <div className="flex flex-row mr-1.5 items-center justify-between gap-3 md:gap-0">
             <Logo />
-            <UserMenu />
+            <UserMenu currentUser={currentUser} />
           </div>
         </Container>
       </div>

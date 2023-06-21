@@ -4,9 +4,17 @@ import React, { useState } from "react";
 
 import type { MenuProps } from "antd";
 import { Avatar, Button, Card, Dropdown, Space } from "antd";
+import { useToggle } from "ahooks";
 
 import { LuClipboardEdit, LuLogOut, LuSettings } from "react-icons/lu";
 import { IconType } from "react-icons";
+
+import { SafeUser } from "@/app/types";
+import LoginModal from "../modals/LoginModal";
+
+interface UserMenuProps {
+  currentUser?: SafeUser | null;
+}
 
 const IconLabel = ({ text, icon: Icon }: { text: string; icon: IconType }) => {
   return (
@@ -16,23 +24,22 @@ const IconLabel = ({ text, icon: Icon }: { text: string; icon: IconType }) => {
     </div>
   );
 };
+
 const UserInfoCard = () => {
   return (
-    <>
-      <Card style={{ width: "100%", marginTop: 7, padding: 0 }}>
-        <Card.Meta
-          avatar={
-            <Avatar
-              className="border-1 border-gray-200"
-              size={64}
-              src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=2"
-            />
-          }
-          title="Greg Wu"
-          description="greg5wu@gmail.com"
-        />
-      </Card>
-    </>
+    <Card style={{ width: "100%", marginTop: 7, padding: 0 }}>
+      <Card.Meta
+        avatar={
+          <Avatar
+            className="border-1 border-gray-200"
+            size={64}
+            src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=2"
+          />
+        }
+        title="Greg Wu"
+        description="greg5wu@gmail.com"
+      />
+    </Card>
   );
 };
 const items: MenuProps["items"] = [
@@ -73,22 +80,38 @@ const items: MenuProps["items"] = [
   },
 ];
 
-const UserMenu = () => {
+const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
+  const [loginModalState, { toggle }] = useToggle();
   return (
-    <Dropdown
-      menu={{ items }}
-      trigger={["click"]}
-      overlayStyle={{ width: 340 }}
-    >
-      <Space>
-        <Avatar
-          size="large"
-          className="bg-orange-400 align-middle cursor-pointer"
+    <>
+      {currentUser ? (
+        <Dropdown
+          menu={{ items }}
+          trigger={["click"]}
+          overlayStyle={{ width: 340 }}
         >
-          Wuuuu
-        </Avatar>
-      </Space>
-    </Dropdown>
+          <Space>
+            <Avatar
+              size="large"
+              className="bg-orange-400 align-middle cursor-pointer"
+            >
+              Wuuuu
+            </Avatar>
+          </Space>
+        </Dropdown>
+      ) : (
+        <div className="w-[160px] flex justify-around">
+          <Button
+            type="dashed"
+            onClick={toggle}
+          >
+            登录
+          </Button>
+          <Button type="ghost">注册</Button>
+          <LoginModal visible={loginModalState} />
+        </div>
+      )}
+    </>
   );
 };
 
