@@ -1,4 +1,9 @@
+"use client";
+
+import { useState } from "react";
+
 import { Button, Form, Input, Modal, Divider } from "antd";
+import { signIn } from "next-auth/react";
 import { FcGoogle } from "react-icons/fc";
 import { BsGithub } from "react-icons/bs";
 import Heading from "../Heading";
@@ -18,7 +23,17 @@ const LoginModal: React.FC<LoginModalProps> = ({
   onOk,
   onRegisterModalToggle,
 }) => {
+  const [loading, setLoading] = useState(false);
   const onFinish = (values: Record<string, any>) => {
+    setLoading(true);
+
+    signIn("credentials", {
+      ...values,
+    }).then((callback) => {
+      setLoading(false);
+      console.log(callback);
+    });
+
     console.log("Success:", values);
     onOk?.();
   };
@@ -68,10 +83,11 @@ const LoginModal: React.FC<LoginModalProps> = ({
           </Form.Item>
           <Form.Item>
             <Button
+              block
               className="mt-6"
               size="large"
               type="primary"
-              block
+              loading={loading}
               htmlType="submit"
             >
               登录
@@ -84,6 +100,7 @@ const LoginModal: React.FC<LoginModalProps> = ({
           icon={<FcGoogle />}
           block
           size="large"
+          onClick={() => signIn("google")}
         >
           Google
         </Button>
@@ -92,6 +109,7 @@ const LoginModal: React.FC<LoginModalProps> = ({
           icon={<BsGithub />}
           block
           size="large"
+          onClick={() => signIn("github")}
         >
           Github
         </Button>

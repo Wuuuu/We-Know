@@ -6,9 +6,10 @@ import type { MenuProps } from "antd";
 import { Avatar, Button, Card, Dropdown, Space } from "antd";
 import { useToggle } from "ahooks";
 
+import { useSession } from "next-auth/react";
+
 import { LuClipboardEdit, LuLogOut, LuSettings } from "react-icons/lu";
 import { IconType } from "react-icons";
-
 import { SafeUser } from "@/app/types";
 import LoginModal from "../modals/LoginModal";
 import RegisterModal from "../modals/RegisterModal";
@@ -83,6 +84,8 @@ const items: MenuProps["items"] = [
 ];
 
 const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
+  // const [session, loading] = useSession();
+  // console.log("session", session);
   const [loginModalState, { toggle: loginModaltoggle, setLeft: setLoginLeft }] = useToggle();
   const [registerModalState, { toggle: registerModaltoggle, setLeft: setRegisterLeft }] =
     useToggle();

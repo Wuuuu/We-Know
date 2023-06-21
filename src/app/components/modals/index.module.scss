@@ -1,13 +1,12 @@
-
-.login-modal-wrapper {
+.login-modal-wrapper,
+.register-modal-wrapper {
   :global {
-    .ant-modal-title{
+    .ant-modal-title {
       color: rgba(0, 0, 0, 0.75);
       font-size: 16px;
     }
     .ant-form-item {
       margin-bottom: 12px;
     }
-
   }
 }
