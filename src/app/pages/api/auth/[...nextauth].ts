@@ -18,7 +18,7 @@ export default NextAuth({
       name: "credentials",
       credentials: {
         username: { label: "username", type: "text" },
-        email: { label: "email", type: "text" },
+        // email: { label: "email", type: "text" },
         password: { label: "password", type: "password" },
       },
       async authorize(credentials) {
@@ -35,13 +35,13 @@ export default NextAuth({
         // }
         // const user = await authResponse.json();
         // return user;
-        if (!credentials?.email || !credentials?.password) {
+        if (!credentials?.username || !credentials?.password) {
           throw new Error("无效凭证");
         }
 
         const user = await prisma.user.findUnique({
           where: {
-            email: credentials.email,
+            email: credentials.username,
           },
         });
 

@@ -6,10 +6,10 @@ import axios from "axios";
 import { Button, Form, Input, Modal, Divider, message } from "antd";
 import { FcGoogle } from "react-icons/fc";
 import { BsGithub } from "react-icons/bs";
+import { NoticeType } from "antd/es/message/interface";
 import Heading from "../Heading";
 
 import styles from "./index.module.scss";
-import { NoticeType } from "antd/es/message/interface";
 
 axios.defaults.baseURL = "http://47.109.94.67:3000";
 
