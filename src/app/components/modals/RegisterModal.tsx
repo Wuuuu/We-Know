@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import axios from "axios";
+import { UserRegisterProps, register } from "@/app/api/user";
 import { Button, Form, Input, Modal, Divider, message } from "antd";
 import { FcGoogle } from "react-icons/fc";
 import { BsGithub } from "react-icons/bs";
@@ -42,13 +43,12 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
     });
   };
 
-  const onFinish = (values: Record<string, any>) => {
+  const onFinish = (values: UserRegisterProps) => {
     setLoading(true);
 
     console.log("Success:", values);
 
-    axios
-      .post("/api/user/register", values)
+    register(values)
       .then(() => {
         showMessage("success", "注册成功!");
         onToggle();
@@ -59,7 +59,6 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
       .finally(() => {
         setLoading(false);
       });
-    onOk?.();
   };
 
   return (

@@ -1,13 +1,13 @@
-import NextAuth from "next-auth";
+import NextAuth, { AuthOptions } from "next-auth";
 import Providers from "next-auth/providers";
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-
 import bcrypt from "bcrypt";
 import prisma from "@/app/libs/prismadb";
+import { login } from "@/app/api/user";
 
-export default NextAuth({
+export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     GithubProvider({
@@ -18,10 +18,11 @@ export default NextAuth({
       name: "credentials",
       credentials: {
         username: { label: "username", type: "text" },
-        // email: { label: "email", type: "text" },
+        email: { label: "email", type: "text" },
         password: { label: "password", type: "password" },
       },
       async authorize(credentials) {
+        console.log("---", credentials);
         // const authResponse = await fetch("http://47.109.94.67:3000/api/auth/login", {
         //   method: "POST",
         //   headers: {
@@ -39,15 +40,11 @@ export default NextAuth({
           throw new Error("无效凭证");
         }
 
-        const user = await prisma.user.findUnique({
-          where: {
-            email: credentials.username,
-          },
-        });
-
-        if (!user || !user?.hashedPassword) {
-          throw new Error("无效凭证");
-        }
+        const user = await login(credentials);
+        console.log(user);
+        // if (!user || !user?.hashedPassword) {
+        //   throw new Error("无效凭证");
+        // }
 
         const isCorrectPassword = await bcrypt.compare(credentials.password, user.hashedPassword);
 
@@ -67,4 +64,5 @@ export default NextAuth({
     strategy: "jwt",
   },
   secret: process.env.NEXTAUTH_SECRET,
-});
+};
+export default NextAuth(authOptions);

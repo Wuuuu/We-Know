@@ -29,6 +29,7 @@ const LoginModal: React.FC<LoginModalProps> = ({
 
     signIn("credentials", {
       ...values,
+      redirect: false,
     }).then((callback) => {
       setLoading(false);
       console.log(callback);
