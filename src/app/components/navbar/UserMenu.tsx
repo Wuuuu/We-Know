@@ -17,7 +17,7 @@ interface UserMenuProps {
   currentUser?: SafeUser | null;
 }
 
-type UserInfoProps = Pick<SafeUser, "avatarUrl" | "username" | "email">;
+type UserInfoProps = Pick<SafeUser, "image" | "name" | "email">;
 
 const IconLabel = ({ text, icon: Icon }: { text: string; icon: IconType }) => {
   return (
@@ -28,19 +28,19 @@ const IconLabel = ({ text, icon: Icon }: { text: string; icon: IconType }) => {
   );
 };
 
-const UserInfoCard = ({ avatarUrl, username, email }: UserInfoProps) => {
+const UserInfoCard = ({ image, name, email }: UserInfoProps) => {
   return (
     <Card style={{ width: "100%", marginTop: 7, padding: 0 }}>
       <Card.Meta
         avatar={
           <Avatar
-            className="border-1 border-gray-200"
+            className="flex items-center justify-center border-1 border-gray-200"
             size={64}
-            src={avatarUrl}
-            icon={<BiUserCircle />}
+            src={image}
+            icon={<BiUserCircle size={48} />}
           />
         }
-        title={username}
+        title={name}
         description={email}
       />
     </Card>
@@ -93,13 +93,13 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
     );
   }
 
-  const { avatarUrl, username, email } = currentUser;
+  const { image, name, email } = currentUser;
   const items: MenuProps["items"] = [
     {
       label: (
         <UserInfoCard
-          avatarUrl={avatarUrl}
-          username={username}
+          image={image}
+          name={name}
           email={email}
         />
       ),
@@ -148,9 +148,9 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
         <Space>
           <Avatar
             size="large"
-            src={avatarUrl}
+            src={image}
             className="align-middle cursor-pointer"
-            icon={<BiUserCircle />}
+            icon={<BiUserCircle size={38} />}
           />
         </Space>
       </a>

@@ -44,7 +44,6 @@ const LoginModal: React.FC<LoginModalProps> = ({
       ...values,
       redirect: false,
     }).then((callback) => {
-      console.log(callback);
       setLoading(false);
       if (callback?.ok) {
         showMessage("success", "登录成功!");
@@ -92,7 +91,7 @@ const LoginModal: React.FC<LoginModalProps> = ({
           >
             <Form.Item
               label="用户名："
-              name="username"
+              name="name"
               rules={[{ required: true, message: "请输入用户名!" }]}
             >
               <Input size="large" />

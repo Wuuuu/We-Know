@@ -9,7 +9,6 @@ export async function getCurSession() {
 export default async function getCurrentUser() {
   try {
     const session = await getCurSession();
-    console.log("session", session);
     if (!session?.user?.email) {
       return null;
     }

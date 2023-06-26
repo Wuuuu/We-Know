@@ -21,7 +21,7 @@ export const authOptions: AuthOptions = {
     CredentialsProvider({
       name: "credentials",
       credentials: {
-        username: { label: "username", type: "text" },
+        name: { label: "name", type: "text" },
         email: { label: "email", type: "text" },
         password: { label: "password", type: "password" },
       },
@@ -30,9 +30,9 @@ export const authOptions: AuthOptions = {
           throw new Error("无效凭证");
         }
 
-        const user = await prisma.user.findUnique({
+        const user = await prisma.user.findFirst({
           where: {
-            email: credentials.email,
+            OR: [{ name: credentials.name }, { email: credentials.email }],
           },
         });
 

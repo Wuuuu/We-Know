@@ -96,7 +96,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
           >
             <Form.Item
               label="用户名："
-              name="username"
+              name="name"
               rules={[{ required: true, message: "请输入用户名!" }]}
             >
               <Input size="large" />
