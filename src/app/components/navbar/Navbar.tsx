@@ -4,8 +4,10 @@ import Container from "../Container";
 import Logo from "./Logo";
 import UserMenu from "./UserMenu";
 
+import { SafeUser } from "@/app/types";
+
 type NavbarProps = {
-  currentUser?: null;
+  currentUser?: SafeUser | null;
 };
 
 const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {

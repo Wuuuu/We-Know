@@ -6,14 +6,18 @@ import type { MenuProps } from "antd";
 import { Avatar, Button, Card, Dropdown, Space } from "antd";
 import { useToggle } from "ahooks";
 import { LuClipboardEdit, LuLogOut, LuSettings } from "react-icons/lu";
+import { BiUserCircle } from "react-icons/bi";
 import { IconType } from "react-icons";
 import { SafeUser } from "@/app/types";
 import LoginModal from "../modals/LoginModal";
 import RegisterModal from "../modals/RegisterModal";
+import { signOut } from "next-auth/react";
 
 interface UserMenuProps {
   currentUser?: SafeUser | null;
 }
+
+type UserInfoProps = Pick<SafeUser, "avatarUrl" | "username" | "email">;
 
 const IconLabel = ({ text, icon: Icon }: { text: string; icon: IconType }) => {
   return (
@@ -24,7 +28,7 @@ const IconLabel = ({ text, icon: Icon }: { text: string; icon: IconType }) => {
   );
 };
 
-const UserInfoCard = () => {
+const UserInfoCard = ({ avatarUrl, username, email }: UserInfoProps) => {
   return (
     <Card style={{ width: "100%", marginTop: 7, padding: 0 }}>
       <Card.Meta
@@ -32,53 +36,26 @@ const UserInfoCard = () => {
           <Avatar
             className="border-1 border-gray-200"
             size={64}
-            src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=2"
+            src={avatarUrl}
+            icon={<BiUserCircle />}
           />
         }
-        title="Greg Wu"
-        description="greg5wu@gmail.com"
+        title={username}
+        description={email}
       />
     </Card>
   );
 };
 
-const items: MenuProps["items"] = [
-  {
-    label: <UserInfoCard />,
-    key: "0",
-  },
-  {
-    label: (
-      <IconLabel
-        icon={LuClipboardEdit}
-        text="编辑用户"
-      />
-    ),
-    key: "2",
-  },
-
-  {
-    label: (
-      <IconLabel
-        icon={LuSettings}
-        text="设置"
-      />
-    ),
-    key: "1",
-  },
-  {
-    type: "divider",
-  },
-  {
-    label: (
-      <IconLabel
-        icon={LuLogOut}
-        text="退出用户"
-      />
-    ),
-    key: "3",
-  },
-];
+const onClick: MenuProps["onClick"] = ({ key }) => {
+  // const menuActionTypes = {
+  //   "3": () => signOut(),
+  // };
+  if (key === "3") {
+    signOut();
+  }
+  // menuActionTypes[key]();
+};
 
 const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   const [loginModalState, { toggle: loginModaltoggle, setLeft: setLoginLeft }] = useToggle();
@@ -116,20 +93,67 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
     );
   }
 
+  const { avatarUrl, username, email } = currentUser;
+  const items: MenuProps["items"] = [
+    {
+      label: (
+        <UserInfoCard
+          avatarUrl={avatarUrl}
+          username={username}
+          email={email}
+        />
+      ),
+      key: "0",
+    },
+    {
+      label: (
+        <IconLabel
+          icon={LuClipboardEdit}
+          text="编辑用户"
+        />
+      ),
+      key: "2",
+    },
+
+    {
+      label: (
+        <IconLabel
+          icon={LuSettings}
+          text="设置"
+        />
+      ),
+      key: "1",
+    },
+    {
+      type: "divider",
+    },
+    {
+      label: (
+        <IconLabel
+          icon={LuLogOut}
+          text="退出用户"
+        />
+      ),
+      key: "3",
+    },
+  ];
+
   return (
     <Dropdown
-      menu={{ items }}
+      menu={{ items, onClick }}
       trigger={["click"]}
       overlayStyle={{ width: 340 }}
     >
-      <Space>
-        <Avatar
-          size="large"
-          className="bg-orange-400 align-middle cursor-pointer"
-        >
-          Wuuuu
-        </Avatar>
-      </Space>
+      <a onClick={(e) => e.preventDefault()}>
+        <Space>
+          <Avatar
+            size="large"
+            src={avatarUrl}
+            className="align-middle cursor-pointer"
+            icon={<BiUserCircle />}
+          />
+        </Space>
+      </a>
     </Dropdown>
   );
 };

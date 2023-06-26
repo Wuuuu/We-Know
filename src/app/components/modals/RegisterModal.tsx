@@ -44,8 +44,6 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
   const onFinish = (values: UserRegisterProps) => {
     setLoading(true);
 
-    console.log("Success:", values);
-
     axios
       .post("/api/register", values)
       .then(() => {

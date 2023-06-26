@@ -2,9 +2,9 @@ import { Nunito } from "next/font/google";
 
 import ClientOnly from "./components/ClientOnly";
 import Navbar from "./components/navbar/Navbar";
+import getCurrentUser from "./actions/getCurrentUser";
 
 import "./globals.css";
-import getCurrentUser from "./actions/getCurrentUser";
 
 const font = Nunito({ subsets: ["latin"] });
 
@@ -21,7 +21,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html lang="en">
       <body className={font.className}>
         <ClientOnly>
-          <Navbar />
+          <Navbar currentUser={currentUser} />
         </ClientOnly>
         <div>{children}</div>
       </body>
