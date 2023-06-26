@@ -4,6 +4,7 @@ import ClientOnly from "./components/ClientOnly";
 import Navbar from "./components/navbar/Navbar";
 
 import "./globals.css";
+import getCurrentUser from "./actions/getCurrentUser";
 
 const font = Nunito({ subsets: ["latin"] });
 
@@ -12,11 +13,10 @@ export const metadata = {
   description: "欢迎来到We_Know",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const currentUser = await getCurrentUser();
+
+  console.log("currentUser", currentUser);
   return (
     <html lang="en">
       <body className={font.className}>

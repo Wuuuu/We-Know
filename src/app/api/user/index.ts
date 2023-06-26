@@ -8,12 +8,12 @@ export type UserRegisterProps = {
 
 export type UserLoginProps = Omit<UserRegisterProps, "email">;
 
-export type UserInfoProps = Pick<UserRegisterProps, "username">;
+export type UserInfoProps = { usename: string | null | undefined };
 
 export function register(data: UserRegisterProps) {
   return request({
     method: "post", //请求方法，get post
-    url: "/user/register",
+    url: "/register",
     data,
   });
 }

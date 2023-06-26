@@ -12,8 +12,6 @@ import Heading from "../Heading";
 
 import styles from "./index.module.scss";
 
-axios.defaults.baseURL = "http://47.109.94.67:3000";
-
 type RegisterModalProps = {
   visible: boolean;
   onCancel: () => void;
@@ -48,7 +46,8 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
 
     console.log("Success:", values);
 
-    register(values)
+    axios
+      .post("/api/register", values)
       .then(() => {
         showMessage("success", "注册成功!");
         onToggle();
@@ -59,6 +58,18 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
       .finally(() => {
         setLoading(false);
       });
+
+    // register(values)
+    //   .then(() => {
+    //     showMessage("success", "注册成功!");
+    //     onToggle();
+    //   })
+    //   .catch((error) => {
+    //     showMessage("error", error);
+    //   })
+    //   .finally(() => {
+    //     setLoading(false);
+    //   });
   };
 
   return (
