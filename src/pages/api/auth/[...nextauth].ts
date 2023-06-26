@@ -1,4 +1,4 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
+import NextAuth, { AuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -7,7 +7,7 @@ import prisma from "@/app/libs/prismadb";
 
 import bcrypt from "bcrypt";
 
-export const authOptions: NextAuthOptions = {
+export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     GithubProvider({
@@ -26,15 +26,16 @@ export const authOptions: NextAuthOptions = {
         password: { label: "password", type: "password" },
       },
       async authorize(credentials) {
-        if (!credentials?.username || !credentials?.password) {
+        if (!credentials?.email || !credentials?.password) {
           throw new Error("无效凭证");
         }
 
-        const user = await prisma.user.findFirst({
+        const user = await prisma.user.findUnique({
           where: {
-            OR: [{ username: credentials.username }, { email: credentials.email }],
+            email: credentials.email,
           },
         });
+
         if (!user || !user?.hashedPassword) {
           throw new Error("无效凭证");
         }
@@ -52,7 +53,7 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/",
   },
-  // debug: process.env.NODE_ENV === "development",
+  debug: process.env.NODE_ENV === "development",
   session: {
     strategy: "jwt",
   },
