@@ -8,8 +8,15 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        "swiper-btn-bg":
+          "linear-gradient(270deg, #030303 0%, rgba(3, 3, 3, 0.80) 55.46%, rgba(3, 3, 3, 0.00) 100%)",
+        "g-gradient-type1": "bg-gradient-to-b from-[#38C1A5] to-[#0891D5]",
+      },
+      fontFamily: {
+        NextPoster: ["NEXT-Poster"],
+        neuemachina: ["neuemachina"],
+        NextBook: ["NEXT-Book"],
+        NextBookThin: ["NEXT-Book-Thin"],
       },
     },
   },

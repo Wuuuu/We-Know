@@ -1,0 +1,31 @@
+@font-face {
+  font-family: "neuemachina";
+  src: url("/fonts/neuemachina-light.otf") format("opentype"),
+    url("/fonts/neuemachina-regular.otf") format("opentype"),
+    url("/fonts/neuemachina-ultrabold.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "NEXT-Book";
+  src: url("/fonts/NEXT_otf/NEXT-Book-Bold.otf") format("opentype"),
+    url("/fonts/NEXT_otf/NEXT-Book-Bold-Italic.otf") format("opentype"),
+    url("/fonts/NEXT_otf/NEXT-Book-Italic.otf") format("opentype"),
+    url("/fonts/NEXT_otf/NEXT-Book-Regular.otf") format("opentype"),
+    url("/fonts/NEXT_otf/NEXT-Book-Thin-Italic.otf") format("opentype"),
+    url("/fonts/NEXT_otf/NEXT-Book-Thin.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "NEXT-Book-Thin";
+  src: url("/fonts/NEXT_otf/NEXT-Book-Thin.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "NEXT-Poster";
+  src: url("/fonts/NEXT_otf/NEXT-Poster-Bold.otf") format("opentype"),
+    url("/fonts/NEXT_otf/NEXT-Poster-Bold-Italic.otf") format("opentype"),
+    url("/fonts/NEXT_otf/NEXT-Poster-Italic.otf") format("opentype"),
+    url("/fonts/NEXT_otf/NEXT-Poster-Regular.otf") format("opentype"),
+    url("/fonts/NEXT_otf/NEXT-Poster-Thin-Italic.otf") format("opentype"),
+    url("/fonts/NEXT_otf/NEXT-Poster-Thin.otf") format("opentype");
+}

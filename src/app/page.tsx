@@ -1,9 +1,13 @@
-import Image from "next/image";
+import ClinetOnly from "./components/ClientOnly";
+import Container from "./components/Container";
+import CardGroup from "./components/hackQuest/CardGroup";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      123
-    </main>
+    <ClinetOnly>
+      <Container>
+        <CardGroup />
+      </Container>
+    </ClinetOnly>
   );
 }
