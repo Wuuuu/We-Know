@@ -12,9 +12,11 @@ const CardType1 = () => {
           <p className="text-[16px] text-[#EDEDED] leading-4 font-NextBook font-bold">
             Introduction to programming
           </p>
-          <p className="my-4 py-1 px-2 w-[53px] text-[9px] leading-[110%] text-white font-NextBook rounded-[20px] border-[1px] border-[#676767]">
-            Beginner
-          </p>
+          <div className="flex items-center">
+            <p className="my-4 py-1 px-2 text-[9px] leading-[110%] text-white font-NextBook rounded-[20px] border-[1px] border-[#676767]">
+              Beginner
+            </p>
+          </div>
           <section className="text-xs max-w-[336px] mb-[65px] text-[#676767] leading-[110%] font-NextBookThin ">
             This course covers the most basic concepts in programming using Solidity as an example.
           </section>

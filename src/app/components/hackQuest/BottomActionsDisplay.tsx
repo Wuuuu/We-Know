@@ -27,7 +27,7 @@ const BottomActionsDisplay: React.FC<BottomActionsDisplayProps> = ({ isCompleted
         </span>
       </div>
       {isCompleted && (
-        <div className="flex items-center w-[140px] py-2 px-4 rounded-[40px] bg-[#2A2A2A]">
+        <div className="flex items-center py-[8px] px-[16px] rounded-[40px] bg-[#2A2A2A]">
           <img
             src="/images/status_completed.svg"
             alt="status_completed"

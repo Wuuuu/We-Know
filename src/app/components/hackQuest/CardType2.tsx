@@ -39,7 +39,7 @@ const CardType2 = () => {
           </div>
         </div>
       </div>
-      <div className="absolute top-0 left-0 h-[278px] w-[416px] bg-[url('/images/card_type_2_bgi.png')] bg-cover bg-center bg-no-repeat transform scale-[0.999] z-[-1]" />
+      <div className="absolute top-0 left-0 h-[278px] w-[416px] bg-[url('/images/card_type_2_bgi.png')] bg-cover bg-center bg-no-repeat transform scale-[0.995] z-[-1]" />
     </div>
   );
 };
