@@ -26,7 +26,7 @@ export function login(data: UserLoginProps) {
   });
 }
 
-export function getUserInfo(params) {
+export function getUserInfo() {
   return request({
     method: "get", //请求方法，get post
     url: "/user/info",
