@@ -10,7 +10,7 @@ const Logo = () => {
       alt="logo"
       width={50}
       height={50}
-      // onClick={() => router.push("/")}
+      onClick={() => router.push("/")}
     />
   );
 };

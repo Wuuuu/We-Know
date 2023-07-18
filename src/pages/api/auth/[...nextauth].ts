@@ -26,21 +26,26 @@ export const authOptions: AuthOptions = {
         password: { label: "password", type: "password" },
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) {
+        const userInfo = { ...credentials };
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (emailRegex.test(credentials?.name || "")) {
+          userInfo.email = credentials?.name || "";
+        }
+        if (!userInfo?.name || !userInfo?.password) {
           throw new Error("无效凭证");
         }
 
         const user = await prisma.user.findFirst({
           where: {
-            OR: [{ name: credentials.name }, { email: credentials.email }],
+            OR: [{ name: userInfo.name }, { email: userInfo.email }],
           },
         });
-
+        console.log("user", user);
         if (!user || !user?.hashedPassword) {
           throw new Error("无效凭证");
         }
 
-        const isCorrectPassword = await bcrypt.compare(credentials.password, user.hashedPassword);
+        const isCorrectPassword = await bcrypt.compare(userInfo.password, user.hashedPassword);
 
         if (!isCorrectPassword) {
           throw new Error("无效凭证");
