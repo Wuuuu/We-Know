@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 
 import type { MenuProps } from "antd";
 import { Avatar, Button, Card, Dropdown, Space } from "antd";
@@ -17,7 +17,7 @@ interface UserMenuProps {
   currentUser?: SafeUser | null;
 }
 
-type UserInfoProps = Pick<SafeUser, "image" | "name" | "email">;
+type UserInfoProps = Pick<SafeUser, "avatarUrl" | "name" | "email">;
 
 const IconLabel = ({ text, icon: Icon }: { text: string; icon: IconType }) => {
   return (
@@ -28,7 +28,7 @@ const IconLabel = ({ text, icon: Icon }: { text: string; icon: IconType }) => {
   );
 };
 
-const UserInfoCard = ({ image, name, email }: UserInfoProps) => {
+const UserInfoCard = ({ avatarUrl, name, email }: UserInfoProps) => {
   return (
     <Card style={{ width: "100%", marginTop: 7, padding: 0 }}>
       <Card.Meta
@@ -36,7 +36,7 @@ const UserInfoCard = ({ image, name, email }: UserInfoProps) => {
           <Avatar
             className="flex items-center justify-center border-1 border-gray-200"
             size={64}
-            src={image}
+            src={avatarUrl}
             icon={<BiUserCircle size={48} />}
           />
         }
@@ -93,12 +93,12 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
     );
   }
 
-  const { image, name, email } = currentUser;
+  const { avatarUrl, name, email } = currentUser;
   const items: MenuProps["items"] = [
     {
       label: (
         <UserInfoCard
-          image={image}
+          avatarUrl={avatarUrl}
           name={name}
           email={email}
         />
@@ -141,14 +141,14 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   return (
     <Dropdown
       menu={{ items, onClick }}
-      trigger={["click"]}
+      trigger={["click", "hover"]}
       overlayStyle={{ width: 340 }}
     >
       <a onClick={(e) => e.preventDefault()}>
         <Space>
           <Avatar
             size="large"
-            src={image}
+            src={avatarUrl}
             className="align-middle cursor-pointer"
             icon={<BiUserCircle size={38} />}
           />

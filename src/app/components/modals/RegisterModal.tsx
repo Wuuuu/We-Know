@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import axios from "axios";
+// import axios from "axios";
 import { UserRegisterProps, register } from "@/app/api/user";
 import { Button, Form, Input, Modal, Divider, message } from "antd";
 import { FcGoogle } from "react-icons/fc";
@@ -44,20 +44,8 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
   const onFinish = (values: UserRegisterProps) => {
     setLoading(true);
 
-    axios
-      .post("/api/register", values)
-      .then(() => {
-        showMessage("success", "注册成功!");
-        onToggle();
-      })
-      .catch((error) => {
-        showMessage("error", error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-
-    // register(values)
+    // axios
+    //   .post("/api/register", values)
     //   .then(() => {
     //     showMessage("success", "注册成功!");
     //     onToggle();
@@ -68,6 +56,18 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
     //   .finally(() => {
     //     setLoading(false);
     //   });
+
+    register(values)
+      .then(() => {
+        showMessage("success", "注册成功!");
+        onToggle();
+      })
+      .catch((error) => {
+        showMessage("error", error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -96,7 +96,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
           >
             <Form.Item
               label="用户名："
-              name="name"
+              name="username"
               rules={[{ required: true, message: "请输入用户名!" }]}
             >
               <Input size="large" />

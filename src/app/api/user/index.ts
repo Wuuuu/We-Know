@@ -13,7 +13,7 @@ export type UserInfoProps = { usename: string | null | undefined };
 export function register(data: UserRegisterProps) {
   return request({
     method: "post", //请求方法，get post
-    url: "/register",
+    url: "/user/register",
     data,
   });
 }
@@ -26,10 +26,10 @@ export function login(data: UserLoginProps) {
   });
 }
 
-export function getUserInfo(data: UserInfoProps) {
+export function getUserInfo(params) {
   return request({
     method: "get", //请求方法，get post
     url: "/user/info",
-    data,
+    // data,
   });
 }

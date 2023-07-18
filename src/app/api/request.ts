@@ -1,8 +1,10 @@
 import axios from "axios"; //导入axios
 
+const token = localStorage.getItem("access_token");
 //创建axios对象
 const request = axios.create({
-  baseURL: "http://47.109.94.67:3000/api", //接口基准路径
+  // baseURL: "http://47.109.94.67:3000/api", //接口基准路径
+  baseURL: "http://localhost:3001/api", // 本地接口基准路径
 });
 
 // 请求拦截器  1，可以在这里添加token

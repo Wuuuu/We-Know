@@ -1,8 +1,11 @@
 import NextAuth, { AuthOptions } from "next-auth";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { getUserInfo } from "@/app/api/user";
+import { getToken } from "next-auth/jwt";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
+
 import prisma from "@/app/libs/prismadb";
 
 import bcrypt from "bcrypt";
@@ -35,9 +38,10 @@ export const authOptions: AuthOptions = {
           throw new Error("无效凭证");
         }
 
-        const user = await prisma.user.findFirst({
+        console.log("userInfo", userInfo);
+        const user = await prisma.users.findFirst({
           where: {
-            OR: [{ name: userInfo.name }, { email: userInfo.email }],
+            OR: [{ username: userInfo.name }, { email: userInfo.email }],
           },
         });
         console.log("user", user);
@@ -55,6 +59,16 @@ export const authOptions: AuthOptions = {
       },
     }),
   ],
+  // callbacks: {
+  //   async jwt({ token, account, profile }) {
+  //     console.log("----token-----", token, account, profile);
+  //     if (account) {
+  //       token.accessToken = account.access_token;
+  //       token.id = profile?.name;
+  //     }
+  //     return token;
+  //   },
+  // },
   pages: {
     signIn: "/",
   },
