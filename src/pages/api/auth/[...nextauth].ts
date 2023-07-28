@@ -1,7 +1,6 @@
 import NextAuth, { AuthOptions } from "next-auth";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { getUserInfo } from "@/app/api/user";
-import { getToken } from "next-auth/jwt";
+import { login } from "@/app/api/user";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -38,13 +37,12 @@ export const authOptions: AuthOptions = {
           throw new Error("无效凭证");
         }
 
-        console.log("userInfo", userInfo);
         const user = await prisma.users.findFirst({
           where: {
             OR: [{ username: userInfo.name }, { email: userInfo.email }],
           },
         });
-        console.log("user", user);
+
         if (!user || !user?.hashedPassword) {
           throw new Error("无效凭证");
         }
@@ -55,20 +53,23 @@ export const authOptions: AuthOptions = {
           throw new Error("无效凭证");
         }
 
+        // login({ username: userInfo.name, password: userInfo.password }).then((res) => {
+        //   console.log(res);
+        // });
         return user;
       },
     }),
   ],
-  // callbacks: {
-  //   async jwt({ token, account, profile }) {
-  //     console.log("----token-----", token, account, profile);
-  //     if (account) {
-  //       token.accessToken = account.access_token;
-  //       token.id = profile?.name;
-  //     }
-  //     return token;
-  //   },
-  // },
+  callbacks: {
+    async jwt({ token, account, profile }) {
+      // console.log("----token-----", account?.access_token);
+      if (account) {
+        token.accessToken = account.access_token;
+        token.id = profile?.name;
+      }
+      return token;
+    },
+  },
   pages: {
     signIn: "/",
   },

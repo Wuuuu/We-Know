@@ -7,17 +7,12 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "swiper-btn-bg":
-          "linear-gradient(270deg, #030303 0%, rgba(3, 3, 3, 0.80) 55.46%, rgba(3, 3, 3, 0.00) 100%)",
-        "g-gradient-type1": "bg-gradient-to-b from-[#38C1A5] to-[#0891D5]",
-      },
-      fontFamily: {
-        NextPoster: ["NEXT-Poster"],
-        neuemachina: ["neuemachina"],
-        NextBook: ["NEXT-Book"],
-        NextBookThin: ["NEXT-Book-Thin"],
-      },
+      // fontFamily: {
+      //   NextPoster: ["NEXT-Poster"],
+      //   neuemachina: ["neuemachina"],
+      //   NextBook: ["NEXT-Book"],
+      //   NextBookThin: ["NEXT-Book-Thin"],
+      // },
     },
   },
   plugins: [],

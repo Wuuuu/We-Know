@@ -93,13 +93,13 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
     );
   }
 
-  const { avatarUrl, name, email } = currentUser;
+  const { avatarUrl, username, email } = currentUser;
   const items: MenuProps["items"] = [
     {
       label: (
         <UserInfoCard
           avatarUrl={avatarUrl}
-          name={name}
+          name={username}
           email={email}
         />
       ),

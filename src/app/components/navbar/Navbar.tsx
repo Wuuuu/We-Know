@@ -3,7 +3,6 @@
 import Container from "../Container";
 import Logo from "./Logo";
 import UserMenu from "./UserMenu";
-import Categories from "../categories";
 
 import { SafeUser } from "@/app/types";
 
@@ -13,7 +12,7 @@ type NavbarProps = {
 
 const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
   return (
-    <div className="relative w-full bg-white z-10 shadow-sm">
+    <div className="w-full">
       <div className="py-2.5 border-b-[1px]">
         <Container>
           <div className="flex flex-row mr-1.5 items-center justify-between gap-3">
@@ -22,7 +21,6 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
           </div>
         </Container>
       </div>
-      <Categories />
     </div>
   );
 };
