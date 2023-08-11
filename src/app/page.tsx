@@ -1,13 +1,12 @@
-import ClinetOnly from "./components/ClientOnly";
-import Container from "./components/Container";
-import PositionCard from "./components/PostionCard";
+import ClinetOnly from "@/components/ClientOnly";
+import Container from "@/components/Container";
+import KnowledgeCategories from "@/components/knowledge-category";
 
 export default function Home() {
-  // console.log(PositionCard);
   return (
     <ClinetOnly>
       <Container>
-        <PositionCard />
+        <KnowledgeCategories />
       </Container>
     </ClinetOnly>
   );

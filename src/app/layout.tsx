@@ -1,7 +1,6 @@
 import { Nunito } from "next/font/google";
-
-import ClientOnly from "./components/ClientOnly";
-import Navbar from "./components/navbar/Navbar";
+import ClientOnly from "@/components/ClientOnly";
+import Navbar from "@/components/navbar/Navbar";
 import getCurrentUser from "./actions/getCurrentUser";
 
 import "./globals.css";
